@@ -1,2 +1,24 @@
-# mac-portfolio
-맥북 사고서 삘받아 만드는 맥북느낌의 포트폴리오
+# hjy-portfolio
+
+## Project setup
+```
+yarn install
+```
+
+### Compiles and hot-reloads for development
+```
+yarn serve
+```
+
+### Compiles and minifies for production
+```
+yarn build
+```
+
+### Lints and fixes files
+```
+yarn lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
