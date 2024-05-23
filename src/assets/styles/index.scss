@@ -100,5 +100,19 @@ a {
     justify-content: flex-start;
     align-items: center;
     color: var(--window-text-color);
+    padding: 8px 12px 20px 12px;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      cursor: pointer;
+      height: 30%;
+      background: var(--window-scroll-bar-color);
+      border-radius: 2px;
+    }
+    &::-webkit-scrollbar-track {
+      background: rgba(91, 91, 91, 0.1);
+    }
   }
 }

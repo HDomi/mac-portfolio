@@ -1,5 +1,31 @@
 <template>
-  <div class="inner-wrap">포트폴리오</div>
+  <div class="inner-wrap">
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>test</div>
+    <div>last</div>
+  </div>
 </template>
 
 <script lang="ts" setup>

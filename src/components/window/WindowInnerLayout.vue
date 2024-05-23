@@ -32,22 +32,8 @@ const currentId = computed(() => props.windowId);
 <style lang="scss" scoped>
 .window-inner {
   width: 100%;
-  padding: 8px 12px;
   border-radius: 14px;
   height: calc(100% - 40px);
   background: var(--window-inner-color);
-  overflow: auto;
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    cursor: pointer;
-    height: 30%;
-    background: #d4d5d8;
-    border-radius: 2px;
-  }
-  &::-webkit-scrollbar-track {
-    background: rgba(91, 91, 91, 0.1);
-  }
 }
 </style>

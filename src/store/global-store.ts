@@ -51,7 +51,7 @@ export const globalStore = defineStore("global", {
               left: lastWindowPosition.position.left + 50,
             }
           : { top: 32, left: 0 },
-        size: { width: 500, height: 400 },
+        size: { width: 700, height: 500 },
       });
       localStorage.setItem("OPEN_WINDOW", JSON.stringify(this.openWindowArr));
     },
