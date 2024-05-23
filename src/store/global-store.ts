@@ -1,15 +1,73 @@
 import { defineStore } from "pinia";
-
+interface IWindowItem {
+  id: string;
+  position: { top: number; left: number };
+  size: { width: number; height: number };
+}
 export const globalStore = defineStore("global", {
   state: () => ({
     isLoading: false,
+    openWindowArr: JSON.parse(localStorage.getItem("OPEN_WINDOW") || "[]"),
   }),
   getters: {
     getLoading: (state) => state.isLoading,
+    getOpenWindowArr: (state) => state.openWindowArr,
   },
   actions: {
     setLoading(isLoading: boolean) {
       this.isLoading = isLoading;
+    },
+    setOpenWindowArr(openWindowArr: string[]) {
+      this.openWindowArr = openWindowArr;
+      localStorage.setItem("OPEN_WINDOW", JSON.stringify(openWindowArr));
+    },
+    addOpenWindowArr(windowId: string) {
+      const isExist = this.openWindowArr.find(
+        (item: IWindowItem) => item.id === windowId
+      );
+      if (isExist) return;
+      const lastWindowPosition =
+        this.openWindowArr[this.openWindowArr.length - 1];
+      this.openWindowArr.push({
+        id: windowId,
+        position: lastWindowPosition
+          ? {
+              top: lastWindowPosition.position.top + 50,
+              left: lastWindowPosition.position.left + 50,
+            }
+          : { top: 32, left: 0 },
+        size: { width: 500, height: 400 },
+      });
+      localStorage.setItem("OPEN_WINDOW", JSON.stringify(this.openWindowArr));
+    },
+    removeOpenWindowArr(windowId: string) {
+      const index = this.openWindowArr.findIndex(
+        (item: IWindowItem) => item.id === windowId
+      );
+      if (index === -1) return;
+      this.openWindowArr.splice(index, 1);
+      localStorage.setItem("OPEN_WINDOW", JSON.stringify(this.openWindowArr));
+    },
+    moveWindow(windowId: string, position: { top: number; left: number }) {
+      const index = this.openWindowArr.findIndex(
+        (item: IWindowItem) => item.id === windowId
+      );
+      if (index === -1) return;
+      this.openWindowArr[index].position = position;
+      localStorage.setItem("OPEN_WINDOW", JSON.stringify(this.openWindowArr));
+    },
+    resizeWindow(
+      windowId: string,
+      position: { top: number; left: number },
+      size: { width: number; height: number }
+    ) {
+      const index = this.openWindowArr.findIndex(
+        (item: IWindowItem) => item.id === windowId
+      );
+      if (index === -1) return;
+      this.openWindowArr[index].position = position;
+      this.openWindowArr[index].size = size;
+      localStorage.setItem("OPEN_WINDOW", JSON.stringify(this.openWindowArr));
     },
   },
 });

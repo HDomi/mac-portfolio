@@ -1,6 +1,6 @@
 <template>
   <div class="dock-icon">
-    <img :src="iconImage" :alt="title" />
+    <img :src="iconImage" :alt="title" @click="iconClick" />
     <div class="dock-icon-info flex-col">
       <p class="hover-title">{{ title }}</p>
       <p class="hover-sub-title">{{ subTitle }}</p>
@@ -10,6 +10,10 @@
 <script lang="ts" setup>
 import { ref, watchEffect, defineProps, defineEmits, computed } from "vue";
 const props = defineProps({
+  id: {
+    type: String,
+    default: "",
+  },
   title: {
     type: String,
     default: "",
@@ -24,6 +28,9 @@ const props = defineProps({
   },
 });
 const emit = defineEmits(["clickIcon"]);
+const iconClick = () => {
+  emit("clickIcon", props.id);
+};
 </script>
 <style lang="scss" scoped>
 .dock-icon {
