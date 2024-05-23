@@ -25,6 +25,12 @@ interface IDockApp {
   subTitle: string;
   iconImage: string;
 }
+interface IWindowItem {
+  id: string;
+  previewId?: string;
+  position: { top: number; left: number };
+  size: { width: number; height: number };
+}
 const store = globalStore();
 
 onMounted(() => {
@@ -108,12 +114,20 @@ const defaultAppArr = [
   },
 ];
 const dockIconClick = (id: string) => {
-  store.addOpenWindowArr(id);
+  const opendWindows = store.getOpenWindowArr;
+  const currentWindow = opendWindows.find(
+    (window: IWindowItem) => window.id === id
+  );
+  if (!currentWindow) {
+    store.addOpenWindowArr(id);
+    return;
+  }
+  store.gotoLastWindow(id);
 };
 </script>
 <style lang="scss" scoped>
 .dock-bar-wrap {
-  z-index: 9999;
+  z-index: 99999;
   position: fixed;
   left: 0;
   bottom: 10px;

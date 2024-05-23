@@ -7,13 +7,15 @@
       width: `${size.width}px`,
       height: `${size.height}px`,
     }"
+    :class="{ 'no-transition': resizing || dragging }"
     @click="gotoLastWindow"
+    @dblclick="maximizeWindow"
   >
     <div class="window-header flex-row" @mousedown.stop="moveWindow($event)">
       <div class="buttons flex-row">
         <div class="buttons-btn close" @click.stop="closeWindow"></div>
-        <div class="buttons-btn minimize"></div>
-        <div class="buttons-btn maximize"></div>
+        <div class="buttons-btn minimize" @click.stop="minimizeWindow"></div>
+        <div class="buttons-btn maximize" @click.stop="maximizeWindow"></div>
       </div>
       <div class="info">
         <p>{{ windowId.toUpperCase() }}</p>
@@ -90,6 +92,24 @@ const props = defineProps({
 
 const closeWindow = () => {
   store.removeOpenWindowArr(props.windowId);
+};
+const minimizeWindow = () => {
+  console.debug("minimize");
+};
+const maximizeWindow = () => {
+  const newWidth = window.innerWidth;
+  const newHeight = window.innerHeight - 20;
+  store.resizeWindow(
+    props.windowId,
+    {
+      top: 32,
+      left: 0,
+    },
+    {
+      width: newWidth,
+      height: newHeight,
+    }
+  );
 };
 let startX = 0;
 let startY = 0;
@@ -184,7 +204,7 @@ onUnmounted(() => {
 </script>
 <style lang="scss" scoped>
 .window-box {
-  z-index: 99999;
+  z-index: 9999;
   position: fixed;
   width: 100%;
   height: 100%;
@@ -192,6 +212,10 @@ onUnmounted(() => {
   border-radius: 14px;
   border: 1px solid var(--window-border-color);
   background: var(--window-header-color);
+  transition: 0.3s;
+  &.no-transition {
+    transition: none;
+  }
   .window-header {
     padding: 0 12px;
     width: 100%;

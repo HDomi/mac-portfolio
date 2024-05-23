@@ -51,7 +51,6 @@ const openNewPreview = (item: IPortFolio) => {
     (window: IWindowItem) => window.id === "preview"
   );
   if (!currentPreview) {
-    console.debug("없음");
     store.addOpenWindowArr("preview", item.id);
     return;
   }
