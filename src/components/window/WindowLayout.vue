@@ -14,10 +14,11 @@
         <div class="buttons-btn minimize"></div>
         <div class="buttons-btn maximize"></div>
       </div>
+      <div class="info">
+        <p>{{ windowId.toUpperCase() }}</p>
+      </div>
     </div>
-    <div class="window-inner">
-      <slot name="inner"></slot>
-    </div>
+    <WindowInnerLayout :windowId="windowId" />
     <div
       class="resize-handle nw"
       @mousedown.stop="resizeWindow('nw', $event)"
@@ -56,6 +57,7 @@
 <script lang="ts" setup>
 import { defineProps, onMounted, onUnmounted } from "vue";
 import { globalStore } from "@/store/global-store";
+import WindowInnerLayout from "@/components/window/WindowInnerLayout.vue";
 interface IWindowPosition {
   top: number;
   left: number;
@@ -64,6 +66,7 @@ interface IWindowSize {
   width: number;
   height: number;
 }
+
 const store = globalStore();
 const props = defineProps({
   windowId: {
@@ -206,13 +209,13 @@ onUnmounted(() => {
         }
       }
     }
-  }
-  .window-inner {
-    width: 100%;
-    padding: 8px 12px;
-    border-radius: 14px;
-    height: calc(100% - 40px);
-    background: var(--window-inner-color);
+    .info {
+      p {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--window-text-color);
+      }
+    }
   }
   .resize-handle {
     position: absolute;

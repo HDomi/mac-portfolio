@@ -4,19 +4,34 @@ interface IWindowItem {
   position: { top: number; left: number };
   size: { width: number; height: number };
 }
+interface IDockApp {
+  id: string;
+  isDefault?: boolean;
+  title: string;
+  subTitle: string;
+  iconImage: string;
+}
 export const globalStore = defineStore("global", {
   state: () => ({
     isLoading: false,
     openWindowArr: JSON.parse(localStorage.getItem("OPEN_WINDOW") || "[]"),
+    usedAppArr: JSON.parse(localStorage.getItem("USED_APP") || "[]"),
   }),
   getters: {
     getLoading: (state) => state.isLoading,
     getOpenWindowArr: (state) => state.openWindowArr,
+    getUsedAppArr: (state) => state.usedAppArr,
   },
   actions: {
     setLoading(isLoading: boolean) {
       this.isLoading = isLoading;
     },
+    //사용한 앱 관련 함수
+    setUsedAppArr(usedAppArr: IDockApp[]) {
+      this.usedAppArr = usedAppArr;
+      localStorage.setItem("USED_APP", JSON.stringify(usedAppArr));
+    },
+    //윈도우 관련 함수
     setOpenWindowArr(openWindowArr: string[]) {
       this.openWindowArr = openWindowArr;
       localStorage.setItem("OPEN_WINDOW", JSON.stringify(openWindowArr));
@@ -47,6 +62,14 @@ export const globalStore = defineStore("global", {
       if (index === -1) return;
       this.openWindowArr.splice(index, 1);
       localStorage.setItem("OPEN_WINDOW", JSON.stringify(this.openWindowArr));
+
+      const usedAppIndex = this.usedAppArr.findIndex(
+        (item: IDockApp) => item.id === windowId && !item.isDefault
+      );
+      if (usedAppIndex !== -1) {
+        this.usedAppArr.splice(usedAppIndex, 1);
+        localStorage.setItem("USED_APP", JSON.stringify(this.usedAppArr));
+      }
     },
     moveWindow(windowId: string, position: { top: number; left: number }) {
       const index = this.openWindowArr.findIndex(

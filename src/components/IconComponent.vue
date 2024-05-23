@@ -1,4 +1,5 @@
 <template>
+  <div v-if="id === 'folder'" class="dock-vertical-line" />
   <div class="dock-icon">
     <img :src="iconImage" :alt="title" @click="iconClick" />
     <div class="dock-icon-info flex-col">
@@ -33,6 +34,11 @@ const iconClick = () => {
 };
 </script>
 <style lang="scss" scoped>
+.dock-vertical-line {
+  width: 1px;
+  height: 50px;
+  background: var(--dock-border-color);
+}
 .dock-icon {
   width: 70px;
   height: 70px;

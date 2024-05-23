@@ -1,6 +1,6 @@
 <template>
   <div class="main-wrap">
-    <WindowComponent
+    <WindowLayout
       v-for="(window, idx) in openedWindows"
       :key="idx"
       :windowId="window.id"
@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
-import WindowComponent from "@/components/WindowComponent.vue";
+import WindowLayout from "@/components/window/WindowLayout.vue";
 import { globalStore } from "@/store/global-store";
 
 interface IWindowItem {
