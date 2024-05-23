@@ -7,8 +7,9 @@
       width: `${size.width}px`,
       height: `${size.height}px`,
     }"
+    @click="gotoLastWindow"
   >
-    <div class="window-header flex-row" @mousedown="moveWindow($event)">
+    <div class="window-header flex-row" @mousedown.stop="moveWindow($event)">
       <div class="buttons flex-row">
         <div class="buttons-btn close" @click.stop="closeWindow"></div>
         <div class="buttons-btn minimize"></div>
@@ -18,7 +19,7 @@
         <p>{{ windowId.toUpperCase() }}</p>
       </div>
     </div>
-    <WindowInnerLayout :windowId="windowId" />
+    <WindowInnerLayout :windowId="windowId" :previewId="previewId" />
     <div
       class="resize-handle nw"
       @mousedown.stop="resizeWindow('nw', $event)"
@@ -70,6 +71,10 @@ interface IWindowSize {
 const store = globalStore();
 const props = defineProps({
   windowId: {
+    type: String,
+    default: "",
+  },
+  previewId: {
     type: String,
     default: "",
   },
@@ -161,6 +166,10 @@ const handleMouseMove = (event: MouseEvent) => {
 const handleMouseUp = () => {
   dragging = false;
   resizing = false;
+};
+
+const gotoLastWindow = () => {
+  store.gotoLastWindow(props.windowId);
 };
 
 onMounted(() => {

@@ -8,6 +8,7 @@
     <TerminalInner v-if="currentId === 'terminal'" />
     <FolderInner v-if="currentId === 'folder'" />
     <TrashInner v-if="currentId === 'trash'" />
+    <PortfolioPreview v-if="currentId === 'preview'" :previewId="previewId" />
   </div>
 </template>
 
@@ -21,8 +22,13 @@ import FolderInner from "@/components/window/contents/FolderInner.vue";
 import WebPortfolio from "@/components/window/contents/WebPortfolio.vue";
 import MyInfo from "@/components/window/contents/MyInfo.vue";
 import TrashInner from "@/components/window/contents/TrashInner.vue";
+import PortfolioPreview from "@/components/window/contents/PortfolioPreview.vue";
 const props = defineProps({
   windowId: {
+    type: String,
+    default: "",
+  },
+  previewId: {
     type: String,
     default: "",
   },

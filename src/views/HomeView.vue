@@ -4,6 +4,7 @@
       v-for="(window, idx) in openedWindows"
       :key="idx"
       :windowId="window.id"
+      :previewId="window.previewId"
       :position="window.position"
       :size="window.size"
     />
@@ -17,6 +18,7 @@ import { globalStore } from "@/store/global-store";
 
 interface IWindowItem {
   id: string;
+  previewId?: string;
   position: { top: number; left: number };
   size: { width: number; height: number };
 }

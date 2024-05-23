@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 interface IWindowItem {
   id: string;
+  previewId?: string;
   position: { top: number; left: number };
   size: { width: number; height: number };
 }
@@ -36,14 +37,14 @@ export const globalStore = defineStore("global", {
       this.openWindowArr = openWindowArr;
       localStorage.setItem("OPEN_WINDOW", JSON.stringify(openWindowArr));
     },
-    addOpenWindowArr(windowId: string) {
+    addOpenWindowArr(windowId: string, previewId?: string) {
       const isExist = this.openWindowArr.find(
         (item: IWindowItem) => item.id === windowId
       );
       if (isExist) return;
       const lastWindowPosition =
         this.openWindowArr[this.openWindowArr.length - 1];
-      this.openWindowArr.push({
+      const pushItem: IWindowItem = {
         id: windowId,
         position: lastWindowPosition
           ? {
@@ -52,7 +53,17 @@ export const globalStore = defineStore("global", {
             }
           : { top: 32, left: 0 },
         size: { width: 700, height: 500 },
-      });
+      };
+      if (previewId) {
+        pushItem.previewId = previewId;
+        this.usedAppArr.splice(this.usedAppArr.length - 3, 0, {
+          id: windowId,
+          title: "Preview",
+          subTitle: "포트폴리오의 상세정보입니다.",
+          iconImage: require("../assets/images/icons/mac_ic_preview.png"),
+        });
+      }
+      this.openWindowArr.push(pushItem);
       localStorage.setItem("OPEN_WINDOW", JSON.stringify(this.openWindowArr));
     },
     removeOpenWindowArr(windowId: string) {
@@ -90,6 +101,22 @@ export const globalStore = defineStore("global", {
       if (index === -1) return;
       this.openWindowArr[index].position = position;
       this.openWindowArr[index].size = size;
+      localStorage.setItem("OPEN_WINDOW", JSON.stringify(this.openWindowArr));
+    },
+    changePreviewId(previewId: string) {
+      const index = this.openWindowArr.findIndex(
+        (item: IWindowItem) => item.id === "preview"
+      );
+      if (index === -1) return;
+      this.openWindowArr[index].previewId = previewId;
+      localStorage.setItem("OPEN_WINDOW", JSON.stringify(this.openWindowArr));
+    },
+    gotoLastWindow(windowId: string) {
+      const index = this.openWindowArr.findIndex(
+        (item: IWindowItem) => item.id === windowId
+      );
+      if (index === -1) return;
+      this.openWindowArr.push(this.openWindowArr.splice(index, 1)[0]);
       localStorage.setItem("OPEN_WINDOW", JSON.stringify(this.openWindowArr));
     },
   },

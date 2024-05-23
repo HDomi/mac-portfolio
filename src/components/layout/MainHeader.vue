@@ -16,6 +16,7 @@ import { globalStore } from "@/store/global-store";
 
 interface IWindowItem {
   id: string;
+  previewId?: string;
   position: { top: number; left: number };
   size: { width: number; height: number };
 }
