@@ -1,18 +1,32 @@
 <template>
   <q-header elevated class="header-wrap flex-row">
     <div class="header-left flex-row">
-      <img src="../../assets/images/ic_vue.png" alt="logo" class="logo" />
+      <img src="../../assets/images/favicon.png" alt="logo" class="logo" />
       <p class="text" @click="closeEveryWindow">모든 창 닫기</p>
       <p class="text">정보</p>
     </div>
     <div class="header-right flex-row">
-      <div class="text now-time-clock">{{ nowTime }}</div>
+      <svg-icon type="mdi" class="text header-icon" :path="mdiWifi"></svg-icon>
+      <svg-icon
+        type="mdi"
+        class="text header-icon"
+        :path="store.getIsMute ? mdiHeadphonesOff : mdiHeadphones"
+        @click="store.setIsMute(!store.getIsMute)"
+      ></svg-icon>
+      <div
+        class="text now-time-clock"
+        @click="store.setIsOpenDrawer(!store.getIsOpenDrawer)"
+      >
+        {{ nowTime }}
+      </div>
     </div>
   </q-header>
 </template>
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted } from "vue";
 import { globalStore } from "@/store/global-store";
+import SvgIcon from "@jamescoyle/vue-icon";
+import { mdiHeadphones, mdiHeadphonesOff, mdiWifi } from "@mdi/js";
 
 interface IWindowItem {
   id: string;
@@ -80,6 +94,11 @@ const closeEveryWindow = () => {
   .header-right {
     gap: 14px;
     justify-content: flex-end;
+    .header-icon {
+      width: 18px;
+      height: 18px;
+      margin-top: 4px;
+    }
   }
 }
 </style>

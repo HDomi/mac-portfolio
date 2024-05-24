@@ -3,6 +3,7 @@
     <MainHeader />
     <DockBar />
     <q-page-container>
+      <MainDrawer />
       <router-view />
     </q-page-container>
   </q-layout>
@@ -10,7 +11,11 @@
 
 <script lang="ts" setup>
 import MainHeader from "./MainHeader.vue";
+import MainDrawer from "./MainDrawer.vue";
 import DockBar from "./DockBar.vue";
+import { globalStore } from "@/store/global-store";
+
+const store = globalStore();
 </script>
 
 <style lang="scss">

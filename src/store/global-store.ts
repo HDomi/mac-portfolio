@@ -15,17 +15,27 @@ interface IDockApp {
 export const globalStore = defineStore("global", {
   state: () => ({
     isLoading: false,
+    isMute: false,
+    isOpenDrawer: false,
     openWindowArr: JSON.parse(localStorage.getItem("OPEN_WINDOW") || "[]"),
     usedAppArr: JSON.parse(localStorage.getItem("USED_APP") || "[]"),
   }),
   getters: {
     getLoading: (state) => state.isLoading,
+    getIsMute: (state) => state.isMute,
+    getIsOpenDrawer: (state) => state.isOpenDrawer,
     getOpenWindowArr: (state) => state.openWindowArr,
     getUsedAppArr: (state) => state.usedAppArr,
   },
   actions: {
     setLoading(isLoading: boolean) {
       this.isLoading = isLoading;
+    },
+    setIsMute(isMute: boolean) {
+      this.isMute = isMute;
+    },
+    setIsOpenDrawer(isOpenDrawer: boolean) {
+      this.isOpenDrawer = isOpenDrawer;
     },
     //사용한 앱 관련 함수
     setUsedAppArr(usedAppArr: IDockApp[]) {

@@ -103,7 +103,8 @@ const getIconWrapClass = () => {
       width: 100%;
     }
     .img-div {
-      width: 30px;
+      width: 25px;
+      margin-right: 8px;
       &.html {
         content: url("../../assets/images/stack_icons/ic_html5.png");
       }

@@ -72,6 +72,7 @@ const iconList = [
   width: 100%;
   height: 100%;
   .about-me-inner {
+    margin-bottom: 20px;
     .my-photo {
       width: 200px;
       img {
