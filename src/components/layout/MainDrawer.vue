@@ -13,8 +13,8 @@
         <div class="noti-item flex-row">
           <div class="icon-sec"></div>
           <div class="text-sec flex-col">
-            <p class="noti-title">asd</p>
-            <p class="noti-desc">asd</p>
+            <p class="noti-title">알림</p>
+            <p class="noti-desc">알림의 내용입니다.</p>
           </div>
         </div>
       </div>
@@ -46,19 +46,20 @@ const drawerState = computed(() => store.getIsOpenDrawer);
           padding: 5px;
           .noti-item {
             width: 100%;
-            padding: 10px;
+            padding: 15px;
             border-radius: 15px;
             background: var(--noti-background-color);
             border: 1px solid var(--noti-border-color);
             .icon-sec {
-              width: 50px;
-              height: 50px;
-              border-radius: 15px;
+              width: 35px;
+              height: 35px;
+              border-radius: 10px;
               background: #fff;
             }
             .text-sec {
               color: #fff;
               margin-left: 10px;
+              align-items: flex-start;
               .noti-title {
                 font-size: 14px;
                 font-weight: 500;
