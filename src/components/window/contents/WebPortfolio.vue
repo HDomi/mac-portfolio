@@ -51,7 +51,9 @@ const openNewPreview = (item: IPortFolio) => {
     (window: IWindowItem) => window.id === "preview"
   );
   if (!currentPreview) {
-    store.addOpenWindowArr("preview", item.id);
+    setTimeout(() => {
+      store.addOpenWindowArr("preview", item.id);
+    }, 100);
     return;
   }
   setTimeout(() => {
@@ -71,15 +73,15 @@ const portfolioList = computed(() => {
   .portfolio-wrap {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 20px;
     padding: 10px;
     .portfolio-item {
       cursor: pointer;
       justify-content: flex-start;
       .portfolio-item-image {
-        width: 100px;
-        height: 100px;
+        width: 90px;
+        height: 90px;
         img {
           width: 100%;
           height: 100%;

@@ -13,6 +13,15 @@
     --window-maximize-color: #61c554;
     --window-scroll-bar-color: #898989;
     --window-text-color: #ffffff;
+    //프로그래스바
+    --main-gradient: linear-gradient(
+      72.88deg,
+      #455eb5 9.16%,
+      #5643cc 33.89%,
+      #455eb5 62.16%,
+      #673fd7 92.72%
+    );
+    --main-gradient-animation: gradientAnimation 6s infinite;
   }
   @keyframes gradientAnimation {
     0% {

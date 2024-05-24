@@ -52,7 +52,10 @@ export const globalStore = defineStore("global", {
               left: lastWindowPosition.position.left + 50,
             }
           : { top: 32, left: 0 },
-        size: { width: 700, height: 500 },
+        size: {
+          width: window.innerWidth < 900 ? window.innerWidth : 900,
+          height: 700,
+        },
       };
       if (previewId) {
         pushItem.previewId = previewId;

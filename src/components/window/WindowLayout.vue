@@ -7,7 +7,7 @@
       width: `${size.width}px`,
       height: `${size.height}px`,
     }"
-    :class="{ 'no-transition': resizing || dragging }"
+    :class="{ 'no-transition': !windowTransition }"
     @click="gotoLastWindow"
     @dblclick="maximizeWindow"
   >
@@ -58,7 +58,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, onMounted, onUnmounted } from "vue";
+import { defineProps, onMounted, onUnmounted, ref } from "vue";
 import { globalStore } from "@/store/global-store";
 import WindowInnerLayout from "@/components/window/WindowInnerLayout.vue";
 interface IWindowPosition {
@@ -71,6 +71,7 @@ interface IWindowSize {
 }
 
 const store = globalStore();
+const windowTransition = ref(false);
 const props = defineProps({
   windowId: {
     type: String,
@@ -97,19 +98,26 @@ const minimizeWindow = () => {
   console.debug("minimize");
 };
 const maximizeWindow = () => {
-  const newWidth = window.innerWidth;
-  const newHeight = window.innerHeight - 20;
-  store.resizeWindow(
-    props.windowId,
-    {
-      top: 32,
-      left: 0,
-    },
-    {
-      width: newWidth,
-      height: newHeight,
-    }
-  );
+  try {
+    windowTransition.value = true;
+    const newWidth = window.innerWidth;
+    const newHeight = window.innerHeight - 20;
+    store.resizeWindow(
+      props.windowId,
+      {
+        top: 32,
+        left: 0,
+      },
+      {
+        width: newWidth,
+        height: newHeight,
+      }
+    );
+  } finally {
+    setTimeout(() => {
+      windowTransition.value = false;
+    }, 300);
+  }
 };
 let startX = 0;
 let startY = 0;
